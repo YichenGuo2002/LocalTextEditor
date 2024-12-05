@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.border.BevelBorder;
 
 public class MainGUI extends JFrame {
 
@@ -23,9 +24,15 @@ public class MainGUI extends JFrame {
 	private JMenuItem oldestItem;
 	private JMenu clearBtn;
 	private JMenu searchBtn;
+	private DefaultListModel demoList;
+	private JMenuItem searchNameItem;
+	private JMenuItem searchUserItem;
+	private JMenu userMenu;
+	private JMenuItem loginItem;
+	private JMenuItem logoutItem;
 	
-	private void redirectEditGUI(){
-		EditGUI edit = new EditGUI();
+	private void redirectEditGUI(int fileId){
+		ViewGUI edit = new ViewGUI(fileId);
         edit.setVisible(true);
 	};
 
@@ -75,12 +82,23 @@ public class MainGUI extends JFrame {
 		newItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	redirectEditGUI();
+            	redirectEditGUI(-1);
+            	dispose();
             }
 		});
 		
 		quitItem = new JMenuItem("Quit");
 		fileMenu.add(quitItem);
+		
+		userMenu = new JMenu("User");
+		mainMenu.add(userMenu);
+		
+		loginItem = new JMenuItem("Logged in as {User}");
+		loginItem.setEnabled(false);
+		userMenu.add(loginItem);
+		
+		logoutItem = new JMenuItem("Log out");
+		userMenu.add(logoutItem);
 		
 		sortMenu = new JMenu("Sort");
 		mainMenu.add(sortMenu);
@@ -111,11 +129,34 @@ public class MainGUI extends JFrame {
 		
 		searchBtn = new JMenu("Search");
 		mainMenu.add(searchBtn);
+		
+		searchNameItem = new JMenuItem("By Name");
+		searchBtn.add(searchNameItem);
+		
+		searchUserItem = new JMenuItem("By User");
+		searchBtn.add(searchUserItem);
 		scrollPanel.setBounds(0, 29, 490, 274);
 		scrollPanel.setBorder(BorderFactory.createEmptyBorder());
 		contentPanel.add(scrollPanel);
 		
 		fileList = new JList();
+		demoList = new DefaultListModel();
+		demoList.add(0, "file1");
+		demoList.add(1, "file2");
+		demoList.add(2, "file3");
+		demoList.add(3, "file4");
+		demoList.add(4, "file5");
+		demoList.add(5, "file6");
+		demoList.add(6, "file7");
+		demoList.add(7, "file8");
+		demoList.add(8, "file5");
+		demoList.add(9, "file6");
+		demoList.add(10, "file7");
+		demoList.add(11, "file8");
+		
+		fileList.setFixedCellHeight(30);
+		fileList.setBorder(new EmptyBorder(5, 5, 5, 5));
+		fileList.setModel(demoList);
 		scrollPanel.setViewportView(fileList);
 	}
 }

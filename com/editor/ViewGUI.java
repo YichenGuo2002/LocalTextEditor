@@ -5,7 +5,7 @@ import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 
-public class EditGUI extends JFrame {
+public class ViewGUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPanel;
@@ -13,7 +13,8 @@ public class EditGUI extends JFrame {
 	private JScrollPane scrollPanel;
 	private JMenuBar editMenu;
 	private JMenu fileMenu;
-	private JMenuItem saveItem;
+	private JMenuItem editItem;
+	private JMenuItem deleteItem;
 	private JMenuItem quitItem;
 	private JLabel spacer;
 	private JLabel fileLabel;
@@ -34,7 +35,7 @@ public class EditGUI extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EditGUI frame = new EditGUI(-1);
+					ViewGUI frame = new ViewGUI(-1);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,7 +47,7 @@ public class EditGUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public EditGUI(int fileId) {
+	public ViewGUI(int fileId) {
 		this.fileId = fileId;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,8 +68,11 @@ public class EditGUI extends JFrame {
 		fileMenu = new JMenu("File");
 		editMenu.add(fileMenu);
 		
-		saveItem = new JMenuItem("Save");
-		fileMenu.add(saveItem);
+		editItem = new JMenuItem("Edit");
+		fileMenu.add(editItem);
+		
+		deleteItem = new JMenuItem("Delete");
+		fileMenu.add(deleteItem);
 		
 		quitItem = new JMenuItem("Quit");
 		fileMenu.add(quitItem);
@@ -101,6 +105,7 @@ public class EditGUI extends JFrame {
 		contentPanel.add(scrollPanel);
 		
 		file = new JTextArea();
+		file.setEditable(false);
 		file.setWrapStyleWord(true);
 		scrollPanel.setViewportView(file);
 		file.setForeground(Color.BLACK);
