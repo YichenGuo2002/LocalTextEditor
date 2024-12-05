@@ -1,10 +1,13 @@
 package com.editor;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class File {
 	private String name;
 	private String content;
 	private static int idCounter = 1;  // Start from 1 for the first file
     private int id;
+    private LocalDateTime modifyTime;
     private static final int MIN_NAME_LENGTH = 1;
     private static final int MAX_NAME_LENGTH = 255;
     private static final int MIN_CONTENT_LENGTH = 1;
@@ -15,6 +18,7 @@ public class File {
             throw new IllegalArgumentException("Name must be between " + MIN_NAME_LENGTH + " and " + MAX_NAME_LENGTH + " characters.");
         }
         this.name = name;
+        setModifyTime();
     }
     
     public String getName() {
@@ -26,6 +30,7 @@ public class File {
             throw new IllegalArgumentException("Content must be between " + MIN_CONTENT_LENGTH + " and " + MAX_CONTENT_LENGTH + " characters.");
         }
         this.content = content;
+        setModifyTime();
     }
     
     public String getContent() {
@@ -34,6 +39,19 @@ public class File {
     
     public int getId(){
         return this.id;
+    }
+    
+    public LocalDateTime getModifyTime(){
+        return this.modifyTime;
+    }
+    
+    private void setModifyTime(){
+        this.modifyTime = LocalDateTime.now();
+    }
+    
+    public String printModifyTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss MM/dd/yyyy");
+        return this.modifyTime.format(formatter); 
     }
     
     public File(String name, String content) {
