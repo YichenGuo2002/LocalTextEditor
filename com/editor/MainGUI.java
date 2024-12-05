@@ -23,6 +23,11 @@ public class MainGUI extends JFrame {
 	private JMenuItem oldestItem;
 	private JMenu clearBtn;
 	private JMenu searchBtn;
+	
+	private void redirectEditGUI(){
+		EditGUI edit = new EditGUI();
+        edit.setVisible(true);
+	};
 
 	/**
 	 * Launch the application.
@@ -70,8 +75,7 @@ public class MainGUI extends JFrame {
 		newItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EditGUI edit = new EditGUI();
-                edit.setVisible(true);
+            	redirectEditGUI();
             }
 		});
 		
