@@ -1,29 +1,9 @@
 package com.editor;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.Border;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.EtchedBorder;
-import javax.swing.JScrollPane;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JComboBox;
-import javax.swing.BorderFactory;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JList;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JMenu;
-import java.awt.Color;
-import java.awt.Insets;
-import javax.swing.JFormattedTextField;
+import java.awt.*;
+import java.awt.event.*;
 
 public class MainGUI extends JFrame {
 
@@ -86,6 +66,14 @@ public class MainGUI extends JFrame {
 		
 		newItem = new JMenuItem("New");
 		fileMenu.add(newItem);
+		
+		newItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EditGUI edit = new EditGUI();
+                edit.setVisible(true);
+            }
+		});
 		
 		quitItem = new JMenuItem("Quit");
 		fileMenu.add(quitItem);

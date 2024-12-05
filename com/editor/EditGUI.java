@@ -1,22 +1,9 @@
 package com.editor;
 
-import java.awt.EventQueue;
-import java.awt.Rectangle;
-
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTextArea;
-import javax.swing.JLabel;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import java.awt.Color;
-import java.awt.Dimension;
-import javax.swing.JScrollPane;
+
+import java.awt.*;
 
 public class EditGUI extends JFrame {
 
