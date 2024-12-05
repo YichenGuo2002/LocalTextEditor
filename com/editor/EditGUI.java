@@ -21,9 +21,17 @@ import javax.swing.JScrollPane;
 public class EditGUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JTextField textField;
-	private final JScrollPane scrollPane = new JScrollPane();
+	private JPanel contentPanel;
+	private JTextField fileName;
+	private JScrollPane scrollPanel;
+	private JMenuBar editMenu;
+	private JMenu fileMenu;
+	private JMenuItem saveItem;
+	private JMenuItem deleteItem;
+	private JMenuItem quitItem;
+	private JLabel spacer;
+	private JLabel fileLabel;
+	private JTextArea file;
 
 	/**
 	 * Launch the application.
@@ -48,52 +56,53 @@ public class EditGUI extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 490, 340);
 		setResizable(false);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPanel = new JPanel();
+		scrollPanel = new JScrollPane();
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		setContentPane(contentPanel);
+		contentPanel.setLayout(null);
 		
-		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBorderPainted(false);
-		menuBar.setBounds(0, 0, 480, 30);
-		contentPane.add(menuBar);
+		editMenu = new JMenuBar();
+		editMenu.setBorderPainted(false);
+		editMenu.setBounds(0, 0, 480, 30);
+		contentPanel.add(editMenu);
 		
-		JMenu mnNewMenu = new JMenu("File");
-		menuBar.add(mnNewMenu);
+		fileMenu = new JMenu("File");
+		editMenu.add(fileMenu);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Save");
-		mnNewMenu.add(mntmNewMenuItem);
+		saveItem = new JMenuItem("Save");
+		fileMenu.add(saveItem);
 		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Delete");
-		mnNewMenu.add(mntmNewMenuItem_1);
+		deleteItem = new JMenuItem("Delete");
+		fileMenu.add(deleteItem);
 		
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Quit");
-		mnNewMenu.add(mntmNewMenuItem_2);
+		quitItem = new JMenuItem("Quit");
+		fileMenu.add(quitItem);
 		
-		JLabel spacer = new JLabel("     ");  // You can adjust the number of spaces or the length of the label
+		spacer = new JLabel("     ");  // Spacer for decorating the menu bar
         spacer.setPreferredSize(new Dimension(100, 0));  // Set width (100px) and height (0px)
-        menuBar.add(spacer);
+        editMenu.add(spacer);
 		
-		JLabel lblNewLabel = new JLabel("File Name:  ");
-		lblNewLabel.setForeground(Color.GRAY);
-		menuBar.add(lblNewLabel);
+		fileLabel = new JLabel("File Name:  ");
+		fileLabel.setForeground(Color.GRAY);
+		editMenu.add(fileLabel);
 		
-		textField = new JTextField();
-		lblNewLabel.setLabelFor(textField);
-		textField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		menuBar.add(textField);
-		textField.setColumns(10);
-		scrollPane.setBounds(0, 30, 476, 272);
-		scrollPane.setBorder(BorderFactory.createEmptyBorder());
-		contentPane.add(scrollPane);
+		fileName = new JTextField();
+		fileLabel.setLabelFor(fileName);
+		fileName.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		editMenu.add(fileName);
+		fileName.setColumns(10);
+		scrollPanel.setBounds(0, 30, 476, 272);
+		scrollPanel.setBorder(BorderFactory.createEmptyBorder());
+		contentPanel.add(scrollPanel);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setWrapStyleWord(true);
-		scrollPane.setViewportView(textArea);
-		textArea.setForeground(Color.BLACK);
-		textArea.setColumns(30);
-		textArea.setRows(10);
-		textArea.setLineWrap(true);
+		file = new JTextArea();
+		file.setWrapStyleWord(true);
+		scrollPanel.setViewportView(file);
+		file.setForeground(Color.BLACK);
+		file.setColumns(30);
+		file.setRows(10);
+		file.setLineWrap(true);
 	}
 }

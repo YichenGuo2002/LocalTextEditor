@@ -28,11 +28,21 @@ import javax.swing.JFormattedTextField;
 public class MainGUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JTextField textField;
-	private JList list;
-	private JButton btnClean;
-	private final JScrollPane scrollPane = new JScrollPane();
+	private JPanel contentPanel;
+	private JTextField searchBar;
+	private JList fileList;
+	private JScrollPane scrollPanel;
+	private JMenuBar mainMenu;
+	private JMenu fileMenu;
+	private JMenuItem newItem;
+	private JMenuItem quitItem;
+	private JMenu sortMenu;
+	private JMenuItem nameAscItem;
+	private JMenuItem nameDscItem;
+	private JMenuItem latestItem;
+	private JMenuItem oldestItem;
+	private JMenu clearBtn;
+	private JMenu searchBtn;
 
 	/**
 	 * Launch the application.
@@ -58,61 +68,62 @@ public class MainGUI extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 490, 340);
 		setResizable(false);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPanel = new JPanel();
+		scrollPanel = new JScrollPane();
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		setContentPane(contentPanel);
+		contentPanel.setLayout(null);
 		
-		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBorderPainted(false);
-		menuBar.setToolTipText("");
-		menuBar.setBounds(0, 0, 480, 30);
-		contentPane.add(menuBar);
+		mainMenu = new JMenuBar();
+		mainMenu.setBorderPainted(false);
+		mainMenu.setToolTipText("");
+		mainMenu.setBounds(0, 0, 480, 30);
+		contentPanel.add(mainMenu);
 		
-		JMenu mnNewMenu = new JMenu("File");
-		menuBar.add(mnNewMenu);
+		fileMenu = new JMenu("File");
+		mainMenu.add(fileMenu);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("New");
-		mnNewMenu.add(mntmNewMenuItem);
+		newItem = new JMenuItem("New");
+		fileMenu.add(newItem);
 		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Quit");
-		mnNewMenu.add(mntmNewMenuItem_1);
+		quitItem = new JMenuItem("Quit");
+		fileMenu.add(quitItem);
 		
-		JMenu mnNewMenu_2 = new JMenu("Sort");
-		menuBar.add(mnNewMenu_2);
+		sortMenu = new JMenu("Sort");
+		mainMenu.add(sortMenu);
 		
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Name (A to Z)");
-		mnNewMenu_2.add(mntmNewMenuItem_2);
+		nameAscItem = new JMenuItem("Name (A to Z)");
+		sortMenu.add(nameAscItem);
 		
-		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Name (Z to A)");
-		mnNewMenu_2.add(mntmNewMenuItem_3);
+		nameDscItem = new JMenuItem("Name (Z to A)");
+		sortMenu.add(nameDscItem);
 		
-		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Latest Modified");
-		mnNewMenu_2.add(mntmNewMenuItem_4);
+		latestItem = new JMenuItem("Latest Modified");
+		sortMenu.add(latestItem);
 		
-		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Oldest Modified");
-		mnNewMenu_2.add(mntmNewMenuItem_5);
+		oldestItem = new JMenuItem("Oldest Modified");
+		sortMenu.add(oldestItem);
 		
-		textField = new JTextField();
-		textField.setToolTipText("");
-		textField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		menuBar.add(textField);
-		textField.setColumns(10);
+		searchBar = new JTextField();
+		searchBar.setToolTipText("");
+		searchBar.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		mainMenu.add(searchBar);
+		searchBar.setColumns(10);
 		
-		JMenu mnNewMenu_3 = new JMenu("×");
-		menuBar.add(mnNewMenu_3);
-		mnNewMenu_3.setOpaque(true);
-		mnNewMenu_3.setBackground(Color.WHITE);
-		mnNewMenu_3.setBorder(BorderFactory.createEmptyBorder());
+		clearBtn = new JMenu("×");
+		mainMenu.add(clearBtn);
+		clearBtn.setOpaque(true);
+		clearBtn.setBackground(Color.WHITE);
+		clearBtn.setBorder(BorderFactory.createEmptyBorder());
 		
-		JMenu mnNewMenu_1 = new JMenu("Search");
-		menuBar.add(mnNewMenu_1);
-		scrollPane.setBounds(0, 29, 490, 274);
-		scrollPane.setBorder(BorderFactory.createEmptyBorder());
-		contentPane.add(scrollPane);
+		searchBtn = new JMenu("Search");
+		mainMenu.add(searchBtn);
+		scrollPanel.setBounds(0, 29, 490, 274);
+		scrollPanel.setBorder(BorderFactory.createEmptyBorder());
+		contentPanel.add(scrollPanel);
 		
-		list = new JList();
-		scrollPane.setViewportView(list);
+		fileList = new JList();
+		scrollPanel.setViewportView(fileList);
 	}
 }
