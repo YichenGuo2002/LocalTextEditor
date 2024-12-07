@@ -49,6 +49,10 @@ public class File {
         this.modifyTime = LocalDateTime.now();
     }
     
+    public void setModifyTime(LocalDateTime time){
+        this.modifyTime = time;
+    }
+    
     public String printModifyTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss MM/dd/yyyy");
         return this.modifyTime.format(formatter); 
