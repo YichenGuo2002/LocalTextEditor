@@ -120,13 +120,5 @@ public class EditGUI extends JFrame {
 		file.setColumns(30);
 		file.setRows(10);
 		file.setLineWrap(true);
-		
-		this.addWindowListener( new WindowAdapter()
-		{
-		    public void windowClosing(WindowEvent e)
-		    {
-		        new MainGUI().setVisible(true);
-		    }
-		});
 	}
 }
