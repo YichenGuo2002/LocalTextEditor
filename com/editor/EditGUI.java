@@ -103,9 +103,22 @@ public class EditGUI extends JFrame {
 		userMenu = new JMenu("User");
 		editMenu.add(userMenu);
 		
-		loginItem = new JMenuItem("Logged in as {User}");
-		loginItem.setEnabled(false);
-		userMenu.add(loginItem);
+		JMenuItem loggedInItem = new JMenuItem("Logged in as: " + LoginGUI.getLoggedInUser());
+    	loggedInItem.setEnabled(false);
+    	userMenu.add(loggedInItem);
+		// loginItem = new JMenuItem("Logged in as {User}");
+		// loginItem.setEnabled(false);
+		// userMenu.add(loginItem);
+		JMenuItem logoutItem = new JMenuItem("Logout");
+    	userMenu.add(logoutItem);
+    	logoutItem.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            LoginGUI.loggedInUser = null; // Clear the logged-in user
+            new LoginGUI().setVisible(true); // Redirect to LoginGUI
+            dispose(); // Close EditGUI
+        }
+  		});
 		
 		spacer = new JLabel("     ");  // Spacer for decorating the menu bar
         spacer.setPreferredSize(new Dimension(100, 0));

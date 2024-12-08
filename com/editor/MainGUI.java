@@ -157,6 +157,11 @@ public class MainGUI extends JFrame {
 	public MainGUI() {
 		fileManager = new FileManager();
 		files = fileManager.getFiles();
+		if (LoginGUI.getLoggedInUser() == null) {
+			new LoginGUI().setVisible(true);
+			dispose();
+			return;
+		}
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 490, 340);
 		setResizable(false);
@@ -192,9 +197,20 @@ public class MainGUI extends JFrame {
 		userMenu = new JMenu("User");
 		mainMenu.add(userMenu);
 		
-		loginItem = new JMenuItem("Logged in as {User}");
-		loginItem.setEnabled(false);
-		userMenu.add(loginItem);
+		JMenuItem loggedInItem = new JMenuItem("Logged in as: " + LoginGUI.getLoggedInUser());
+		loggedInItem.setEnabled(false);
+		userMenu.add(loggedInItem);
+		JMenuItem logoutItem = new JMenuItem("Logout");
+		userMenu.add(logoutItem);
+
+		logoutItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				LoginGUI.loggedInUser = null;
+				new LoginGUI().setVisible(true);
+				dispose();
+			}
+		});
 		
 		sortMenu = new JMenu("Sort");
 		mainMenu.add(sortMenu);
