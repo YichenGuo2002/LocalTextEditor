@@ -4,6 +4,10 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class EditGUI extends JFrame {
 
@@ -14,13 +18,14 @@ public class EditGUI extends JFrame {
 	private JMenuBar editMenu;
 	private JMenu fileMenu;
 	private JMenuItem saveItem;
-	private JMenuItem quitItem;
+	private JMenuItem menuItem;
 	private JLabel spacer;
 	private JLabel fileLabel;
 	private JTextArea file;
 	private JMenu userMenu;
 	private JMenuItem loginItem;
 	private JMenuItem logoutItem;
+	private FileManager fileManager;
 	
 	//fileId is used to manage the file we are editing
 	//if fileId is -1, it means we are creating a new file
@@ -48,6 +53,7 @@ public class EditGUI extends JFrame {
 	 */
 	public EditGUI(int fileId) {
 		this.fileId = fileId;
+		fileManager = new FileManager();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 490, 340);
@@ -70,8 +76,15 @@ public class EditGUI extends JFrame {
 		saveItem = new JMenuItem("Save");
 		fileMenu.add(saveItem);
 		
-		quitItem = new JMenuItem("Quit");
-		fileMenu.add(quitItem);
+		menuItem = new JMenuItem("Menu");
+		fileMenu.add(menuItem);
+		menuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	new MainGUI().setVisible(true);
+            	dispose();
+            }
+		});
 		
 		userMenu = new JMenu("User");
 		editMenu.add(userMenu);
@@ -107,5 +120,13 @@ public class EditGUI extends JFrame {
 		file.setColumns(30);
 		file.setRows(10);
 		file.setLineWrap(true);
+		
+		this.addWindowListener( new WindowAdapter()
+		{
+		    public void windowClosing(WindowEvent e)
+		    {
+		        new MainGUI().setVisible(true);
+		    }
+		});
 	}
 }

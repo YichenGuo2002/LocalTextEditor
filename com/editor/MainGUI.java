@@ -24,16 +24,24 @@ public class MainGUI extends JFrame {
 	private JMenuItem oldestItem;
 	private JMenu clearBtn;
 	private JMenu searchBtn;
-	private DefaultListModel demoList;
+	private DefaultListModel fileInfoList;
 	private JMenuItem searchNameItem;
 	private JMenuItem searchUserItem;
 	private JMenu userMenu;
 	private JMenuItem loginItem;
 	private JMenuItem logoutItem;
+	private FileManager fileManager;
 	
 	private void redirectEditGUI(int fileId){
-		ViewGUI edit = new ViewGUI(fileId);
+		EditGUI edit = new EditGUI(fileId);
         edit.setVisible(true);
+        dispose();
+	};
+	
+	private void redirectViewGUI(int fileId){
+		ViewGUI view = new ViewGUI(fileId);
+		view.setVisible(true);
+        dispose();
 	};
 
 	/**
@@ -57,6 +65,7 @@ public class MainGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public MainGUI() {
+		fileManager = new FileManager();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 490, 340);
 		setResizable(false);
@@ -83,7 +92,6 @@ public class MainGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
             	redirectEditGUI(-1);
-            	dispose();
             }
 		});
 		
@@ -140,23 +148,24 @@ public class MainGUI extends JFrame {
 		contentPanel.add(scrollPanel);
 		
 		fileList = new JList();
-		demoList = new DefaultListModel();
-		demoList.add(0, "file1");
-		demoList.add(1, "file2");
-		demoList.add(2, "file3");
-		demoList.add(3, "file4");
-		demoList.add(4, "file5");
-		demoList.add(5, "file6");
-		demoList.add(6, "file7");
-		demoList.add(7, "file8");
-		demoList.add(8, "file5");
-		demoList.add(9, "file6");
-		demoList.add(10, "file7");
-		demoList.add(11, "file8");
-		
+		fileInfoList = new DefaultListModel();
+		int counter = 0;
+		for(String fileInfo: fileManager.printFiles()){
+			fileInfoList.add(counter, fileInfo);
+			counter++;
+		}
+		fileList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                    int index = fileList.locationToIndex(e.getPoint());
+                    if (index != -1) {
+                    	redirectViewGUI(fileManager.getFiles().get(index).getId());
+                    }
+            }
+        });
 		fileList.setFixedCellHeight(30);
 		fileList.setBorder(new EmptyBorder(5, 5, 5, 5));
-		fileList.setModel(demoList);
+		fileList.setModel(fileInfoList);
 		scrollPanel.setViewportView(fileList);
 	}
 }
