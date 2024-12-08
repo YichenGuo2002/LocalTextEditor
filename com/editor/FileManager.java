@@ -35,7 +35,7 @@ public class FileManager {
 
                 content = content.replace("//n", "\n");
 
-                File file = new File(name, content);
+                File file = new File(Integer.valueOf(idStr), name, content);
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss MM/dd/yyyy");
                 file.setModifyTime(LocalDateTime.parse(modifyTimeStr, formatter));
                 files.add(file);
@@ -45,6 +45,15 @@ public class FileManager {
 	    }
 	}
 	
+    private void clean() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            writer.write(""); 
+            System.out.println("File contents have been cleared.");
+        } catch (IOException e) {
+            System.out.println("Error clearing the file: " + e.getMessage());
+        }
+    }
+    
 	public void save() {
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (File file : files) {

@@ -1,5 +1,6 @@
 package com.editor;
 
+import java.util.List;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -31,6 +32,7 @@ public class MainGUI extends JFrame {
 	private JMenuItem loginItem;
 	private JMenuItem logoutItem;
 	private FileManager fileManager;
+	private List<File> files;
 	
 	private void redirectEditGUI(int fileId){
 		EditGUI edit = new EditGUI(fileId);
@@ -66,6 +68,7 @@ public class MainGUI extends JFrame {
 	 */
 	public MainGUI() {
 		fileManager = new FileManager();
+		files = fileManager.getFiles();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 490, 340);
 		setResizable(false);
@@ -150,8 +153,8 @@ public class MainGUI extends JFrame {
 		fileList = new JList();
 		fileInfoList = new DefaultListModel();
 		int counter = 0;
-		for(String fileInfo: fileManager.printFiles()){
-			fileInfoList.add(counter, fileInfo);
+		for(File file: files){
+			fileInfoList.add(counter, file.printFile());
 			counter++;
 		}
 		fileList.addMouseListener(new MouseAdapter() {
@@ -159,7 +162,7 @@ public class MainGUI extends JFrame {
             public void mouseClicked(MouseEvent e) {
                     int index = fileList.locationToIndex(e.getPoint());
                     if (index != -1) {
-                    	redirectViewGUI(fileManager.getFiles().get(index).getId());
+                    	redirectViewGUI(files.get(index).getId());
                     }
             }
         });

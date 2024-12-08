@@ -22,11 +22,12 @@ public class ViewGUI extends JFrame {
 	private JMenuItem menuItem;
 	private JLabel spacer;
 	private JLabel fileLabel;
-	private JTextArea file;
+	private JTextArea fileContent;
 	private JMenu userMenu;
 	private JMenuItem loginItem;
 	private JMenuItem logoutItem;
 	private FileManager fileManager;
+	private File file;
 	
 	//fileId is used to manage the file we are editing
 	//if fileId is -1, it means we are creating a new file
@@ -55,6 +56,8 @@ public class ViewGUI extends JFrame {
 	public ViewGUI(int fileId) {
 		this.fileId = fileId;
 		this.fileManager = new FileManager();
+		System.out.println(fileId + " " + fileManager.printFiles());
+		file = fileManager.getFileById(fileId);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 490, 340);
@@ -76,9 +79,25 @@ public class ViewGUI extends JFrame {
 		
 		editItem = new JMenuItem("Edit");
 		fileMenu.add(editItem);
+		editItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	new EditGUI(fileId).setVisible(true);
+            	dispose();
+            }
+		});
 		
 		deleteItem = new JMenuItem("Delete");
 		fileMenu.add(deleteItem);
+		deleteItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	fileManager.deleteFileById(fileId);
+            	fileManager.save();
+            	new MainGUI().setVisible(true);
+            	dispose();
+            }
+		});
 		
 		menuItem = new JMenuItem("Menu");
 		fileMenu.add(menuItem);
@@ -109,21 +128,24 @@ public class ViewGUI extends JFrame {
 		editMenu.add(fileLabel);
 		
 		fileName = new JTextField();
+		fileName.setEditable(false);
 		fileLabel.setLabelFor(fileName);
 		fileName.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		fileName.setText(file.getName());
 		editMenu.add(fileName);
 		fileName.setColumns(10);
 		scrollPanel.setBounds(0, 30, 476, 272);
 		scrollPanel.setBorder(BorderFactory.createEmptyBorder());
 		contentPanel.add(scrollPanel);
 		
-		file = new JTextArea();
-		file.setEditable(false);
-		file.setWrapStyleWord(true);
-		scrollPanel.setViewportView(file);
-		file.setForeground(Color.BLACK);
-		file.setColumns(30);
-		file.setRows(10);
-		file.setLineWrap(true);
+		fileContent = new JTextArea();
+		fileContent.setEditable(false);
+		fileContent.setWrapStyleWord(true);
+		scrollPanel.setViewportView(fileContent);
+		fileContent.setForeground(Color.BLACK);
+		fileContent.setColumns(30);
+		fileContent.setRows(10);
+		fileContent.setLineWrap(true);
+		fileContent.setText(file.getContent());
 	}
 }

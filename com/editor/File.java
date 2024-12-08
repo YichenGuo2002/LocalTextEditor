@@ -1,6 +1,8 @@
 package com.editor;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class File {
 	private String name;
@@ -58,8 +60,19 @@ public class File {
         return this.modifyTime.format(formatter); 
     }
     
+    public String printFile() {
+    	return "ID: " + getId() + ", Name: " + getName() + ", Modify Time: " + printModifyTime();
+	}
+    
     public File(String name, String content) {
         this.id = idCounter++; 
+        setName(name);  
+        setContent(content); 
+    }
+    
+    public File(int id, String name, String content) {
+        this.id = id; 
+        if(idCounter <= id) idCounter = id + 1;
         setName(name);  
         setContent(content); 
     }
