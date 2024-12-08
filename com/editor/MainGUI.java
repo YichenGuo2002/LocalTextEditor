@@ -1,5 +1,7 @@
 package com.editor;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -46,6 +48,47 @@ public class MainGUI extends JFrame {
         dispose();
 	};
 
+	private void loadFileInfoList(){
+		fileInfoList.clear();
+		int counter = 0;
+		for(File file: files){
+			fileInfoList.add(counter, file.printFile());
+			counter++;
+		}
+		fileList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+            	if (e.getClickCount() == 2) {
+                    int index = fileList.locationToIndex(e.getPoint());
+                    if (index != -1) {
+                    	redirectViewGUI(files.get(index).getId());
+                    }
+            	}
+            }
+        });
+	};
+	
+	private void sortNameAsc(){
+		Collections.sort(files, Comparator.comparing(File::getName));
+		loadFileInfoList();
+	};
+	
+	private void sortNameDsc(){
+		Collections.sort(files, Comparator.comparing(File::getName).reversed());
+		loadFileInfoList();
+	};
+	
+	private void sortLatest(){
+		Collections.sort(files, Comparator.comparing(File::getModifyTime).reversed());
+		loadFileInfoList();
+	};
+	
+	private void sortOldest(){
+		Collections.sort(files, Comparator.comparing(File::getModifyTime));
+		loadFileInfoList();
+	};
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -117,14 +160,42 @@ public class MainGUI extends JFrame {
 		nameAscItem = new JMenuItem("Name (A to Z)");
 		sortMenu.add(nameAscItem);
 		
+		nameAscItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	sortNameAsc();
+            }
+		});
+		
 		nameDscItem = new JMenuItem("Name (Z to A)");
 		sortMenu.add(nameDscItem);
+		
+		nameDscItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	sortNameDsc();
+            }
+		});
 		
 		latestItem = new JMenuItem("Latest Modified");
 		sortMenu.add(latestItem);
 		
+		latestItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	sortLatest();
+            }
+		});
+		
 		oldestItem = new JMenuItem("Oldest Modified");
 		sortMenu.add(oldestItem);
+		
+		oldestItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	sortOldest();
+            }
+		});
 		
 		searchBar = new JTextField();
 		searchBar.setToolTipText("");
@@ -152,20 +223,7 @@ public class MainGUI extends JFrame {
 		
 		fileList = new JList();
 		fileInfoList = new DefaultListModel();
-		int counter = 0;
-		for(File file: files){
-			fileInfoList.add(counter, file.printFile());
-			counter++;
-		}
-		fileList.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                    int index = fileList.locationToIndex(e.getPoint());
-                    if (index != -1) {
-                    	redirectViewGUI(files.get(index).getId());
-                    }
-            }
-        });
+		loadFileInfoList();
 		fileList.setFixedCellHeight(30);
 		fileList.setBorder(new EmptyBorder(5, 5, 5, 5));
 		fileList.setModel(fileInfoList);
