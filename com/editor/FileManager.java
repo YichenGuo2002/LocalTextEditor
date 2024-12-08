@@ -2,9 +2,11 @@ package com.editor;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +36,8 @@ public class FileManager {
                 content = content.replace("//n", "\n");
 
                 File file = new File(name, content);
-                file.setModifyTime(LocalDateTime.parse(modifyTimeStr));
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss MM/dd/yyyy");
+                file.setModifyTime(LocalDateTime.parse(modifyTimeStr, formatter));
                 files.add(file);
 	        }
 	    } catch (IOException e) {
@@ -94,4 +97,13 @@ public class FileManager {
 	public List<File> getFiles() {
 	    return files;
 	}
+	
+	/*testing code
+	public static void main(String[] args){
+		FileManager a = new FileManager();
+		a.add(new File("b", "cc"));
+		a.add(new File("c", "dd"));
+		a.save();
+		System.out.println(a.printFiles().toString());
+	}*/
 }
