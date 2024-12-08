@@ -1,5 +1,6 @@
 package com.editor;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -69,6 +70,26 @@ public class MainGUI extends JFrame {
         });
 	};
 	
+	private void loadFileInfoList(List<File> selectedFiles){
+		fileInfoList.clear();
+		int counter = 0;
+		for(File file: selectedFiles){
+			fileInfoList.add(counter, file.printFile());
+			counter++;
+		}
+		fileList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+            	if (e.getClickCount() == 2) {
+                    int index = fileList.locationToIndex(e.getPoint());
+                    if (index != -1) {
+                    	redirectViewGUI(selectedFiles.get(index).getId());
+                    }
+            	}
+            }
+        });
+	};
+	
 	private void sortNameAsc(){
 		Collections.sort(files, Comparator.comparing(File::getName));
 		loadFileInfoList();
@@ -94,6 +115,25 @@ public class MainGUI extends JFrame {
 		loadFileInfoList();
 	};
 	
+	private void searchFile(String input){
+		List<File> selectedFiles = new ArrayList<>();
+		for(File file: files){
+			if(file.getName().toLowerCase().contains(input.toLowerCase())){
+				selectedFiles.add(file);
+			}
+		}
+		loadFileInfoList(selectedFiles);
+	}
+	
+	private void searchUser(String input){/*
+		List<File> selectedFiles = new ArrayList<>();
+		for(File file: files){
+			if(file.getUser().toLowerCase().contains(input.toLowerCase())){
+				selectedFiles.add(file);
+			}
+		}
+		loadFileInfoList(selectedFiles);*/
+	}
 	
 	/**
 	 * Launch the application.
@@ -238,8 +278,25 @@ public class MainGUI extends JFrame {
 		searchNameItem = new JMenuItem("By Name");
 		searchBtn.add(searchNameItem);
 		
+		searchNameItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	if(searchBar.getText().trim() != "") searchFile(searchBar.getText().toLowerCase());
+            	else sortId();
+            }
+		});
+		
 		searchUserItem = new JMenuItem("By User");
 		searchBtn.add(searchUserItem);
+		
+		searchUserItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	if(searchBar.getText().trim() != "") searchUser(searchBar.getText().toLowerCase());
+            	else sortId();
+            }
+		});
+		
 		scrollPanel.setBounds(0, 29, 490, 274);
 		scrollPanel.setBorder(BorderFactory.createEmptyBorder());
 		contentPanel.add(scrollPanel);
