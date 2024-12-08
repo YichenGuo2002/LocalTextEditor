@@ -33,7 +33,6 @@ public class MainGUI extends JFrame {
 	private JMenuItem searchUserItem;
 	private JMenu userMenu;
 	private JMenuItem loginItem;
-	private JMenuItem logoutItem;
 	private FileManager fileManager;
 	private List<File> files;
 	private JMenuItem idItem;
@@ -54,7 +53,7 @@ public class MainGUI extends JFrame {
 		fileInfoList.clear();
 		int counter = 0;
 		for(File file: files){
-			fileInfoList.add(counter, file.printFile());
+			fileInfoList.add(counter, Integer.toString(counter + 1) + file.printFile());
 			counter++;
 		}
 		fileList.addMouseListener(new MouseAdapter() {
@@ -74,7 +73,7 @@ public class MainGUI extends JFrame {
 		fileInfoList.clear();
 		int counter = 0;
 		for(File file: selectedFiles){
-			fileInfoList.add(counter, file.printFile());
+			fileInfoList.add(counter, Integer.toString(counter + 1) + file.printFile());
 			counter++;
 		}
 		fileList.addMouseListener(new MouseAdapter() {
@@ -196,9 +195,6 @@ public class MainGUI extends JFrame {
 		loginItem = new JMenuItem("Logged in as {User}");
 		loginItem.setEnabled(false);
 		userMenu.add(loginItem);
-		
-		logoutItem = new JMenuItem("Log out");
-		userMenu.add(logoutItem);
 		
 		sortMenu = new JMenu("Sort");
 		mainMenu.add(sortMenu);

@@ -25,7 +25,6 @@ public class ViewGUI extends JFrame {
 	private JTextArea fileContent;
 	private JMenu userMenu;
 	private JMenuItem loginItem;
-	private JMenuItem logoutItem;
 	private FileManager fileManager;
 	private File file;
 	
@@ -56,7 +55,6 @@ public class ViewGUI extends JFrame {
 	public ViewGUI(int fileId) {
 		this.fileId = fileId;
 		this.fileManager = new FileManager();
-		System.out.println(fileId + " " + fileManager.printFiles());
 		file = fileManager.getFileById(fileId);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -116,9 +114,6 @@ public class ViewGUI extends JFrame {
 		loginItem.setEnabled(false);
 		userMenu.add(loginItem);
 		
-		logoutItem = new JMenuItem("Log out");
-		userMenu.add(logoutItem);
-		
 		spacer = new JLabel("     ");  // Spacer for decorating the menu bar
         spacer.setPreferredSize(new Dimension(100, 0));
         editMenu.add(spacer);
@@ -128,10 +123,12 @@ public class ViewGUI extends JFrame {
 		editMenu.add(fileLabel);
 		
 		fileName = new JTextField();
+		fileName.setEnabled(false);
 		fileName.setEditable(false);
 		fileLabel.setLabelFor(fileName);
 		fileName.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		fileName.setText(file.getName());
+		fileName.setDisabledTextColor(Color.BLACK);
 		editMenu.add(fileName);
 		fileName.setColumns(10);
 		scrollPanel.setBounds(0, 30, 476, 272);
@@ -139,13 +136,24 @@ public class ViewGUI extends JFrame {
 		contentPanel.add(scrollPanel);
 		
 		fileContent = new JTextArea();
+		fileContent.setEnabled(false);
 		fileContent.setEditable(false);
 		fileContent.setWrapStyleWord(true);
 		scrollPanel.setViewportView(fileContent);
+		
 		fileContent.setForeground(Color.BLACK);
+		fileContent.setDisabledTextColor(Color.BLACK);
 		fileContent.setColumns(30);
 		fileContent.setRows(10);
 		fileContent.setLineWrap(true);
 		fileContent.setText(file.getContent());
+		
+		SwingUtilities.invokeLater(new Runnable()
+		{
+		    public void run()
+		    {
+		        scrollPanel.getViewport().setViewPosition( new Point(0, 0) );
+		    }
+		});
 	}
 }

@@ -24,7 +24,6 @@ public class EditGUI extends JFrame {
 	private JTextArea fileContent;
 	private JMenu userMenu;
 	private JMenuItem loginItem;
-	private JMenuItem logoutItem;
 	private FileManager fileManager;
 	private File file;
 	
@@ -108,9 +107,6 @@ public class EditGUI extends JFrame {
 		loginItem.setEnabled(false);
 		userMenu.add(loginItem);
 		
-		logoutItem = new JMenuItem("Log out");
-		userMenu.add(logoutItem);
-		
 		spacer = new JLabel("     ");  // Spacer for decorating the menu bar
         spacer.setPreferredSize(new Dimension(100, 0));
         editMenu.add(spacer);
@@ -132,10 +128,19 @@ public class EditGUI extends JFrame {
 		fileContent = new JTextArea();
 		fileContent.setWrapStyleWord(true);
 		scrollPanel.setViewportView(fileContent);
+
 		fileContent.setForeground(Color.BLACK);
 		fileContent.setColumns(30);
 		fileContent.setRows(10);
 		fileContent.setLineWrap(true);
 		if(fileId != -1) fileContent.setText(file.getContent());
+		
+		SwingUtilities.invokeLater(new Runnable()
+		{
+		    public void run()
+		    {
+		        scrollPanel.getViewport().setViewPosition( new Point(0, 0) );
+		    }
+		});
 	}
 }

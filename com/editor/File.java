@@ -61,7 +61,7 @@ public class File {
     }
     
     public String printFile() {
-    	return "ID: " + getId() + ", Name: " + getName() + ", Modify Time: " + printModifyTime();
+    	return ". Name: " + getName() + ", Modify Time: " + printModifyTime();
 	}
     
     public File(String name, String content) {
