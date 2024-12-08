@@ -25,7 +25,7 @@ public class MainGUI extends JFrame {
 	private JMenuItem nameDscItem;
 	private JMenuItem latestItem;
 	private JMenuItem oldestItem;
-	private JMenu clearBtn;
+	private JMenuItem clearBtn;
 	private JMenu searchBtn;
 	private DefaultListModel fileInfoList;
 	private JMenuItem searchNameItem;
@@ -35,6 +35,7 @@ public class MainGUI extends JFrame {
 	private JMenuItem logoutItem;
 	private FileManager fileManager;
 	private List<File> files;
+	private JMenuItem idItem;
 	
 	private void redirectEditGUI(int fileId){
 		EditGUI edit = new EditGUI(fileId);
@@ -85,6 +86,11 @@ public class MainGUI extends JFrame {
 	
 	private void sortOldest(){
 		Collections.sort(files, Comparator.comparing(File::getModifyTime));
+		loadFileInfoList();
+	};
+	
+	private void sortId(){
+		Collections.sort(files, Comparator.comparing(File::getId));
 		loadFileInfoList();
 	};
 	
@@ -157,6 +163,15 @@ public class MainGUI extends JFrame {
 		sortMenu = new JMenu("Sort");
 		mainMenu.add(sortMenu);
 		
+		idItem = new JMenuItem("Id");
+		sortMenu.add(idItem);
+		idItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	sortId();
+            }
+		});
+		
 		nameAscItem = new JMenuItem("Name (A to Z)");
 		sortMenu.add(nameAscItem);
 		
@@ -203,11 +218,19 @@ public class MainGUI extends JFrame {
 		mainMenu.add(searchBar);
 		searchBar.setColumns(10);
 		
-		clearBtn = new JMenu("×");
+		clearBtn = new JMenuItem("×");
 		mainMenu.add(clearBtn);
 		clearBtn.setOpaque(true);
 		clearBtn.setBackground(Color.WHITE);
 		clearBtn.setBorder(BorderFactory.createEmptyBorder());
+		
+		clearBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	searchBar.setText("");
+            	sortId();
+            }
+		});
 		
 		searchBtn = new JMenu("Search");
 		mainMenu.add(searchBtn);
