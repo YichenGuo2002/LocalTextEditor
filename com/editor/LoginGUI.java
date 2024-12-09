@@ -1,9 +1,11 @@
 package com.editor;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
 import java.util.HashMap;
 
 public class LoginGUI extends JFrame {
@@ -15,10 +17,12 @@ public class LoginGUI extends JFrame {
     private JButton loginButton;
     private JButton createAccountButton;
 
-    private static HashMap<String, String> userDatabase = new HashMap<>(); // Stores email-password pairs
+    private static final String USER_DB_FILE = "users.txt";
+    private static HashMap<String, String> userDatabase = new HashMap<>();
     private static String loggedInUser = null;
 
     public LoginGUI() {
+        loadUserDatabase();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 400, 300);
         contentPanel = new JPanel();
@@ -50,7 +54,6 @@ public class LoginGUI extends JFrame {
         createAccountButton.setBounds(210, 140, 120, 30);
         contentPanel.add(createAccountButton);
 
-        // Add Action Listeners
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -90,7 +93,33 @@ public class LoginGUI extends JFrame {
             JOptionPane.showMessageDialog(this, "Fields cannot be empty.", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             userDatabase.put(email, password);
+            saveUserDatabase();
             JOptionPane.showMessageDialog(this, "Account created successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    private static void loadUserDatabase() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(USER_DB_FILE))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(":");
+                if (parts.length == 2) {
+                    userDatabase.put(parts[0], parts[1]);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading user database: " + e.getMessage());
+        }
+    }
+
+    private static void saveUserDatabase() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(USER_DB_FILE))) {
+            for (String email : userDatabase.keySet()) {
+                writer.write(email + ":" + userDatabase.get(email));
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving user database: " + e.getMessage());
         }
     }
 
