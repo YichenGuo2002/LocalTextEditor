@@ -1,11 +1,11 @@
 # LocalTextEditor
-A local JFrame based text editor system that allows user to manage their text files. It supports:
+This is a local, JFrame-based Java text editor system designed for managing text files. Key features include:
 
- - User log in and log out.
- - Viewing all saved files with their creator and last modified time.
- - View a single file. Edit, save, or delete it.
- - Sort files by name or time.
- - Search files by name or creator.
+ - **User Authentication**: Secure login and logout functionality.
+ - **File Management**: View all saved files along with their creator and last modified timestamp.
+ - **Sorting**: Sort files by name or modification time.
+ - **Search Functionality**: Search files by name or creator.
+ - **File Operations**: Open, edit, save, or delete individual files.
 
 # How to start
-Go to the com.editor, run MainGUI.java.
+Go to the com/editor, run MainGUI.java.
