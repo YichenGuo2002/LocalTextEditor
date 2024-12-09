@@ -32,7 +32,8 @@ public class MainGUI extends JFrame {
 	private JMenuItem searchNameItem;
 	private JMenuItem searchUserItem;
 	private JMenu userMenu;
-	private JMenuItem loginItem;
+	private JMenuItem loggedInItem;
+	private JMenuItem logoutItem;
 	private FileManager fileManager;
 	private List<File> files;
 	private JMenuItem idItem;
@@ -197,10 +198,10 @@ public class MainGUI extends JFrame {
 		userMenu = new JMenu("User");
 		mainMenu.add(userMenu);
 		
-		JMenuItem loggedInItem = new JMenuItem("Logged in as: " + LoginGUI.getLoggedInUser());
+		loggedInItem = new JMenuItem("Logged in as: " + LoginGUI.getLoggedInUser());
 		loggedInItem.setEnabled(false);
 		userMenu.add(loggedInItem);
-		JMenuItem logoutItem = new JMenuItem("Logout");
+		logoutItem = new JMenuItem("Logout");
 		userMenu.add(logoutItem);
 
 		logoutItem.addActionListener(new ActionListener() {

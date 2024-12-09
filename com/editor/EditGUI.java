@@ -23,7 +23,8 @@ public class EditGUI extends JFrame {
 	private JLabel fileLabel;
 	private JTextArea fileContent;
 	private JMenu userMenu;
-	private JMenuItem loginItem;
+	private JMenuItem loggedInItem;
+	private JMenuItem logoutItem;
 	private FileManager fileManager;
 	private File file;
 	
@@ -103,13 +104,13 @@ public class EditGUI extends JFrame {
 		userMenu = new JMenu("User");
 		editMenu.add(userMenu);
 		
-		JMenuItem loggedInItem = new JMenuItem("Logged in as: " + LoginGUI.getLoggedInUser());
+		loggedInItem = new JMenuItem("Logged in as: " + LoginGUI.getLoggedInUser());
     	loggedInItem.setEnabled(false);
     	userMenu.add(loggedInItem);
 		// loginItem = new JMenuItem("Logged in as {User}");
 		// loginItem.setEnabled(false);
 		// userMenu.add(loginItem);
-		JMenuItem logoutItem = new JMenuItem("Logout");
+		logoutItem = new JMenuItem("Logout");
     	userMenu.add(logoutItem);
     	logoutItem.addActionListener(new ActionListener() {
         @Override

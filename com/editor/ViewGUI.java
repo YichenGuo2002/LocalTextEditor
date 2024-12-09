@@ -24,7 +24,8 @@ public class ViewGUI extends JFrame {
 	private JLabel fileLabel;
 	private JTextArea fileContent;
 	private JMenu userMenu;
-	private JMenuItem loginItem;
+	private JMenuItem loggedInItem;
+	private JMenuItem logoutItem;
 	private FileManager fileManager;
 	private File file;
 	
@@ -110,9 +111,20 @@ public class ViewGUI extends JFrame {
 		userMenu = new JMenu("User");
 		editMenu.add(userMenu);
 		
-		loginItem = new JMenuItem("Logged in as {User}");
-		loginItem.setEnabled(false);
-		userMenu.add(loginItem);
+		loggedInItem = new JMenuItem("Logged in as: " + LoginGUI.getLoggedInUser());
+		loggedInItem.setEnabled(false);
+		userMenu.add(loggedInItem);
+		logoutItem = new JMenuItem("Logout");
+		userMenu.add(logoutItem);
+
+		logoutItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				LoginGUI.loggedInUser = null;
+				new LoginGUI().setVisible(true);
+				dispose();
+			}
+		});
 		
 		spacer = new JLabel("     ");  // Spacer for decorating the menu bar
         spacer.setPreferredSize(new Dimension(100, 0));
