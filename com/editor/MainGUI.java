@@ -142,7 +142,7 @@ public class MainGUI extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainGUI frame = new MainGUI();
+					LoginGUI frame = new LoginGUI();
 					frame.setVisible(true);
 					frame.setResizable(false);
 				} catch (Exception e) {
@@ -194,6 +194,13 @@ public class MainGUI extends JFrame {
 		
 		quitItem = new JMenuItem("Quit");
 		fileMenu.add(quitItem);
+		quitItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	LoginGUI.loggedInUser = null;
+				dispose();
+            }
+		});
 		
 		userMenu = new JMenu("User");
 		mainMenu.add(userMenu);

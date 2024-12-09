@@ -70,7 +70,7 @@ public class File {
     }
     
     public String printFile() {
-    	return ". Name: " + getName() + ", Created By " + getCreator() + ", Modify at " + printModifyTime();
+    	return "." + getName() + ", by " + getCreator() + ", last modified at " + printModifyTime() + ".";
 	}
     
     public File(String name, String content, String creator) {
