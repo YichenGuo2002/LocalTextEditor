@@ -81,7 +81,7 @@ public class EditGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
             	if(fileId == -1){
-            		file = new File(fileName.getText(), fileContent.getText());
+            		file = new File(fileName.getText(), fileContent.getText(), LoginGUI.getLoggedInUser());
             		EditGUI.this.fileId = file.getId();
             		fileManager.add(file);
             	}else{

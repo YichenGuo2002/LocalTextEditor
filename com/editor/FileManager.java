@@ -32,10 +32,11 @@ public class FileManager {
                 String name = reader.readLine().trim();
                 String content = reader.readLine().trim();
                 String modifyTimeStr = reader.readLine().trim();
+                String creator = reader.readLine().trim();
 
                 content = content.replace("//n", "\n");
 
-                File file = new File(Integer.valueOf(idStr), name, content);
+                File file = new File(Integer.valueOf(idStr), name, content, creator);
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss MM/dd/yyyy");
                 file.setModifyTime(LocalDateTime.parse(modifyTimeStr, formatter));
                 files.add(file);
@@ -62,6 +63,7 @@ public class FileManager {
                 String content = file.getContent().replace("\n", "//n");
                 writer.write(content + "\n");
                 writer.write(file.printModifyTime() + "\n");
+                writer.write(file.getCreator() + "\n");
             }
         } catch (IOException e) {
             System.out.println("Error saving the file: " + e.getMessage());

@@ -10,6 +10,7 @@ public class File {
 	private static int idCounter = 1;  // Start from 1 for the first file
     private int id;
     private LocalDateTime modifyTime;
+    private String creator;
     private static final int MIN_NAME_LENGTH = 1;
     private static final int MAX_NAME_LENGTH = 255;
     private static final int MIN_CONTENT_LENGTH = 1;
@@ -43,6 +44,14 @@ public class File {
         return this.id;
     }
     
+    public void setCreator(String creator) {
+    	this.creator = creator;
+    }
+    
+    public String getCreator() {
+    	return this.creator;
+    }
+    
     public LocalDateTime getModifyTime(){
         return this.modifyTime;
     }
@@ -61,19 +70,21 @@ public class File {
     }
     
     public String printFile() {
-    	return ". Name: " + getName() + ", Modify Time: " + printModifyTime();
+    	return ". Name: " + getName() + ", Created By " + getCreator() + ", Modify at " + printModifyTime();
 	}
     
-    public File(String name, String content) {
+    public File(String name, String content, String creator) {
         this.id = idCounter++; 
         setName(name);  
         setContent(content); 
+        setCreator(creator);
     }
     
-    public File(int id, String name, String content) {
+    public File(int id, String name, String content, String creator) {
         this.id = id; 
         if(idCounter <= id) idCounter = id + 1;
         setName(name);  
         setContent(content); 
+        setCreator(creator);
     }
 }

@@ -125,14 +125,14 @@ public class MainGUI extends JFrame {
 		loadFileInfoList(selectedFiles);
 	}
 	
-	private void searchUser(String input){/*
+	private void searchUser(String input){
 		List<File> selectedFiles = new ArrayList<>();
 		for(File file: files){
-			if(file.getUser().toLowerCase().contains(input.toLowerCase())){
+			if(file.getCreator().toLowerCase().contains(input.toLowerCase())){
 				selectedFiles.add(file);
 			}
 		}
-		loadFileInfoList(selectedFiles);*/
+		loadFileInfoList(selectedFiles);
 	}
 	
 	/**
