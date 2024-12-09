@@ -19,7 +19,7 @@ public class LoginGUI extends JFrame {
 
     private static final String USER_DB_FILE = "users.txt";
     private static HashMap<String, String> userDatabase = new HashMap<>();
-    private static String loggedInUser = null;
+    public static String loggedInUser = null;
 
     public LoginGUI() {
         loadUserDatabase();
